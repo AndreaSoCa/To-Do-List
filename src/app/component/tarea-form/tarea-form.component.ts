@@ -1,5 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { TareaService } from 'src/app/services/tarea.service';
+
+function validarNombresUnicos(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const personas = control.value;
+    const nombres = personas.map((persona: any) => persona.nombre);
+    const validarNombresUnicos = new Set(nombres);
+
+    return nombres.length !== validarNombresUnicos.size ? { nombresDuplicados: true } : null;
+  };
+}
 
 @Component({
   selector: 'app-tarea-form',
@@ -9,13 +20,13 @@ import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@ang
 export class TareaFormComponent implements OnInit {
   tareaForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private tareaService: TareaService) {}
 
   ngOnInit(): void {
     this.tareaForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       fechaLimite: ['', Validators.required],
-      personas: this.fb.array([]),
+      personas: this.fb.array([], validarNombresUnicos()),
     });
   }
 
@@ -59,7 +70,10 @@ export class TareaFormComponent implements OnInit {
 
   onSubmit() {
     if (this.tareaForm.valid) {
-      console.log(this.tareaForm.value);
+      // console.log(this.tareaForm.value);
+      this.tareaService.agregarTarea(this.tareaForm.value);
+      this.tareaForm.reset();
     }
   }
+
 }

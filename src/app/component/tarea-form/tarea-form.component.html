@@ -1,25 +1,20 @@
-<form *ngIf="tareaForm" [formGroup]="tareaForm" (ngSubmit)="onSubmit()">
-
-    <!-- Datos de la tarea -->
-    <div> 
-        <label for="nombre">Nombre de la tarea</label>
-        <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre de la tarea">
-        <div *ngIf="tareaForm.get('nombre')?.invalid && tareaForm.get('nombre')?.touched">
-            <span *ngIf="tareaForm.get('nombre')?.errors?.['required']">El nombre es requerido</span>
-        </div>
+<form [formGroup]="tareaForm" (ngSubmit)="onSubmit()">
+    <!-- Datos de la Tarea -->
+    <label for="nombre">Nombre de la Tarea</label>
+    <input id="nombre" formControlName="nombre" type="text">
+    <div *ngIf="tareaForm.get('nombre')?.invalid && tareaForm.get('nombre')?.touched">
+        El nombre es obligatorio.
     </div>
 
-    <div>    
-        <label for="fechaLimite">Fecha Limite</label>
-        <input type="date" id="fechaLimite" formControlName="fechaLimite">
-        <div *ngIf="tareaForm.get('fechaLimite')?.invalid && tareaForm.get('fechaLimite')?.touched">
-            <span *ngIf="tareaForm.get('fechaLimite')?.errors?.['required']">La fecha límite es obligatoria</span> 
-        </div>
+    <label for="fechaLimite">Fecha Límite</label>
+    <input id="fechaLimite" formControlName="fechaLimite" type="date">
+    <div *ngIf="tareaForm.get('fechaLimite')?.invalid && tareaForm.get('fechaLimite')?.touched">
+        La fecha límite es obligatoria.
     </div>
 
-    <!-- Personas de las tareas -->
+    <!-- Personas -->
     <div formArrayName="personas">
-        <div *ngFor="let persona of personas.controls; let i = index" [formGroupName]="i">
+        <div *ngFor="let persona of personas.controls; let i=index" [formGroupName]="i">
             <h3>Persona {{ i + 1 }}</h3>
             <div> 
                 <label for="nombrePersona">Nombre Completo</label>
@@ -39,25 +34,29 @@
                 </div>
             </div>
 
-            <!-- Habilidades personas -->
+            <!-- Habilidades -->
             <div formArrayName="habilidades">
                 <div *ngFor="let habilidad of getHabilidades(i).controls; let j = index" [formGroupName]="j">
                     <label for="habilidad">Habilidad {{ j + 1 }}</label>
-                    <input type="text" [id]="'habilidad' + j" formControlName="habilidad">
+                    <input id="habilidad" [formControlName]="j" type="text">
                     <button type="button" (click)="eliminarHabilidad(i, j)">Eliminar Habilidad</button>
                 </div>
                 <button type="button" (click)="agregarHabilidad(i)">Agregar Habilidad</button>
-            </div>                       
+            </div>
+
+            <div *ngIf="getHabilidades(i).length === 0">
+                Cada persona debe tener al menos una habilidad.
+            </div>
 
             <button type="button" (click)="eliminarPersona(i)">Eliminar Persona</button>
+        </div>
+    </div>
 
-        </div>    
+    <div *ngIf="tareaForm.get('personas')?.errors?.['nombresDuplicados']">
+        Los nombres de las personas no pueden repetirse.
     </div>
 
     <button type="button" (click)="agregarPersona()">Agregar Persona</button>
 
-    <div>
-        <button type="submit" [disabled]="tareaForm.invalid">Crear Tarea</button>
-    </div>
-
+    <button type="submit" [disabled]="tareaForm.invalid">Crear Tarea</button>
 </form>
