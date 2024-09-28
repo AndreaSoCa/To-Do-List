@@ -61,8 +61,11 @@
                             <div class="error" *ngIf="habilidad.invalid && habilidad.touched">
                                 La habilidad no puede estar vacia
                             </div>
-                            <button type="button" class="btn-agregar-habilidad" 
-                                (click)="agregarHabilidad(i)">Agregar Habilidad</button>
+                            <button type="button" class="btn-agregar-habilidad" (click)="agregarHabilidad(i)"
+                                [disabled]="getHabilidades(i).at(getHabilidades(i).length - 1)?.invalid">
+                                Agregar Habilidad
+                            </button>
+                            
                             <button type="button" class="btn-eliminar-habilidad"
                                 (click)="eliminarHabilidad(i, j)">Eliminar Habilidad</button>
                         </div>
@@ -87,8 +90,12 @@
     </div>
 
     <div class="btn-principales">
-        <button type="button" class="btn-agregar-persona" (click)="agregarPersona()">Agregar Persona</button>
+        <button type="button" class="btn-agregar-persona" (click)="agregarPersona()"
+            [disabled]="personas.length > 0 && personas.at(personas.length - 1)?.invalid">
+            Agregar Persona
+        </button>
+
         <button type="submit" class="btn-crear-tarea" [disabled]="tareaForm.invalid">Crear Tarea</button>
     </div>
-    
+
 </form>
