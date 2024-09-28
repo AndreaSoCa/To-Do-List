@@ -20,4 +20,12 @@ export class TareaService {
     this.tareasSubject.next(this.tareas);
   }
 
+  marcarComoCompletada(tarea: Tarea) {
+    const tareaEncontrada = this.tareas.find(t => t.nombre === tarea.nombre);
+    if (tareaEncontrada) {
+      tareaEncontrada.completada = !tareaEncontrada.completada;
+      this.tareasSubject.next(this.tareas);
+    }
+  }
+    
 }
