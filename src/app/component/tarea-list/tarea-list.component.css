@@ -1,0 +1,85 @@
+:host {
+    display: block;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.list {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.btn-filtro {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-filtro button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.75rem 1rem;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-filtro button:hover {
+    background-color: #0056b3;
+}
+
+.listado-tareas {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.listado-tareas ul {
+    list-style: none;
+    padding: 0;
+}
+
+.listado-tareas li {
+    border-bottom: 1px solid #ddd;
+    padding: 1.5rem 0;
+}
+
+.listado-tareas li:last-child {
+    border-bottom: none;
+}
+
+h3 {
+    color: #333;
+    margin: 0;
+}
+
+h4 {
+    margin-top: 1rem;
+    color: #555;
+}
+
+p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.listado-tareas li ul {
+    margin-top: 1rem;
+    padding-left: 2rem;
+}
+
+.listado-tareas li ul li {
+    margin-bottom: 0.5rem;
+}

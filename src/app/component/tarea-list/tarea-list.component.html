@@ -1,28 +1,30 @@
-<h2>Listado de Tareas</h2>
+<div class="list">
+    <h2>Listado de Tareas</h2>
 
-<!-- Filtros -->
-<div class="btn-filtro">
-    <button (click)="filtro = 'todas'">Todas</button>
-    <button (click)="filtro = 'completadas'">Completadas</button>
-    <button (click)="filtro = 'pendientes'">Pendientes</button>
+    <!-- Filtros -->
+    <div class="btn-filtro">
+        <button (click)="filtro = 'todas'">Todas</button>
+        <button (click)="filtro = 'completadas'">Completadas</button>
+        <button (click)="filtro = 'pendientes'">Pendientes</button>
+    </div>
+
+    <!-- Listado de tareas -->
+    <div class="listado-tareas">
+        <ul>
+            <li *ngFor="let tarea of obtenerTareasFiltradas()">
+                <h3>
+                    <input type="checkbox" [checked]="tarea.completada" (change)="marcarTareaComoCompletada(tarea)">
+                    {{ tarea.nombre}} ({{ tarea.completada ? 'Completada' : 'Pendiente' }})</h3>
+                <p>Fecha Límite: {{ tarea.fechaLimite }}</p>
+                <h4>Personas Asociadas:</h4>
+                <ul>
+                    <li *ngFor="let persona of tarea.personas">
+                        {{ persona.nombre }} - {{ persona.edad }} años
+                        <br> Habilidades: {{ persona.habilidades.join(',') }}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
 </div>
-
-<!-- Listado de tareas -->
-<div class="listado-tareas">
-    <ul>
-        <li *ngFor="let tarea of obtenerTareasFiltradas()">
-            <h3>
-                <input type="checkbox" [checked]="tarea.completada" (change)="marcarTareaComoCompletada(tarea)">
-                {{ tarea.nombre}} ({{ tarea.completada ? 'Completada' : 'Pendiente' }})</h3>
-            <p>Fecha Límite: {{ tarea.fechaLimite }}</p>
-            <h4>Personas Asociadas:</h4>
-            <ul>
-                <li *ngFor="let persona of tarea.personas">
-                    {{ persona.nombre }} - {{ persona.edad }} años
-                    <br> Habilidades: {{ persona.habilidades.join(',') }}
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
-

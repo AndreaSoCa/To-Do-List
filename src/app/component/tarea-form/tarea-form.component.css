@@ -1,0 +1,166 @@
+:host {
+    display: block;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+form {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.form-title {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.datos-tarea {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.name-tarea,
+.fecha-tarea {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.personas {
+    margin-bottom: 2rem;
+}
+
+.personas>div {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.persona-nombre,
+.persona-edad {
+    margin-bottom: 1rem;
+}
+
+.habilidades {
+    margin-top: 1rem;
+}
+
+.habilidad-item {
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 10px; */
+    margin-bottom: 1rem;
+}
+
+.habilidad-item-row {
+    display: flex;
+    gap: 0.5rem;
+    /* align-items: center;
+    flex-wrap: wrap; */
+}
+
+button {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-agregar-habilidad,
+.btn-agregar-persona {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-eliminar-habilidad,
+.btn-eliminar-persona {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-crear-tarea {
+    background-color: #2196f3;
+    color: white;
+}
+
+.btn-principales {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .datos-tarea {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-principales {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-principales button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    form {
+        padding: 1rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .habilidad-item-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .habilidad-item-row button {
+        margin-top: 0.5rem;
+    }
+}
