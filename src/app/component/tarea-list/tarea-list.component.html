@@ -1,17 +1,19 @@
 <h2>Listado de Tareas</h2>
 
 <!-- Filtros -->
-<div>
+<div class="btn-filtro">
     <button (click)="filtro = 'todas'">Todas</button>
     <button (click)="filtro = 'completadas'">Completadas</button>
     <button (click)="filtro = 'pendientes'">Pendientes</button>
 </div>
 
 <!-- Listado de tareas -->
-<div>
+<div class="listado-tareas">
     <ul>
         <li *ngFor="let tarea of obtenerTareasFiltradas()">
-            <h3>{{ tarea.nombre}} ({{ tarea.completada ? 'Completada' : 'Pendiente' }})</h3>
+            <h3>
+                <input type="checkbox" [checked]="tarea.completada" (change)="marcarTareaComoCompletada(tarea)">
+                {{ tarea.nombre}} ({{ tarea.completada ? 'Completada' : 'Pendiente' }})</h3>
             <p>Fecha Límite: {{ tarea.fechaLimite }}</p>
             <h4>Personas Asociadas:</h4>
             <ul>
@@ -23,3 +25,4 @@
         </li>
     </ul>
 </div>
+

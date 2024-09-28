@@ -9,24 +9,24 @@ import { Tarea, Persona } from 'src/app/interfaces/tarea.interface';
 })
 export class TareaListComponent implements OnInit {
   tareas: Tarea[] = [
-    {
-      nombre: 'Tarea 1',
-      fechaLimite: '2024-03-20',
-      completada: false,
-      personas: [
-        { nombre: 'Prueba1', edad: 18, habilidades: ['Angular'] },
-        { nombre: 'Prueba2', edad: 18, habilidades: ['Angular'] }
-      ]
-    },
-    {
-      nombre: 'Tarea 2',
-      fechaLimite: '2024-10-20',
-      completada: true,
-      personas: [
-        { nombre: 'Prueba1', edad: 18, habilidades: ['Angular'] },
-        { nombre: 'Prueba2', edad: 18, habilidades: ['Angular'] }
-      ]
-    }
+    // {
+    //   nombre: 'Tarea 1',
+    //   fechaLimite: '2024-03-20',
+    //   completada: false,
+    //   personas: [
+    //     { nombre: 'Prueba1', edad: 18, habilidades: ['Angular'] },
+    //     { nombre: 'Prueba2', edad: 18, habilidades: ['Angular'] }
+    //   ]
+    // },
+    // {
+    //   nombre: 'Tarea 2',
+    //   fechaLimite: '2024-10-20',
+    //   completada: true,
+    //   personas: [
+    //     { nombre: 'Prueba1', edad: 18, habilidades: ['Angular'] },
+    //     { nombre: 'Prueba2', edad: 18, habilidades: ['Angular'] }
+    //   ]
+    // }
   ];
 
   //Estado del filtro
@@ -40,7 +40,6 @@ export class TareaListComponent implements OnInit {
     })
   }
 
-  //Filtar las tareas por estado
   obtenerTareasFiltradas(): Tarea[] {
     if (this.filtro === 'completadas') {
       return this.tareas.filter(tarea => tarea.completada);
@@ -48,6 +47,11 @@ export class TareaListComponent implements OnInit {
       return this.tareas.filter(tarea => !tarea.completada);
     }
     return this.tareas;
+  }
+
+  marcarTareaComoCompletada(tarea: Tarea) {
+    tarea.completada = !tarea.completada;
+    // this.tareasSubject.next(this.tareas);
   }
 
 }

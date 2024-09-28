@@ -20,7 +20,7 @@ function validarNombresUnicos(): ValidatorFn {
 export class TareaFormComponent implements OnInit {
   tareaForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private tareaService: TareaService) {}
+  constructor(private fb: FormBuilder, private tareaService: TareaService) { }
 
   ngOnInit(): void {
     this.tareaForm = this.fb.group({
@@ -57,6 +57,7 @@ export class TareaFormComponent implements OnInit {
   agregarHabilidad(indicePersona: number) {
     const habilidades = this.personas.at(indicePersona).get('habilidades') as FormArray;
     habilidades.push(this.nuevaHabilidad());
+    // this.tareaForm.updateValueAndValidity();
   }
 
   eliminarHabilidad(indicePersona: number, indiceHabilidad: number) {
