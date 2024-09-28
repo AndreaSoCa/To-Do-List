@@ -1,5 +1,6 @@
-#Problema
+# PRUEBA TECNICA
 
+## Problema
 Se desea implementar una aplicación web en Angular 16 que permita gestionar tareas y personas 
 asociadas a ellas. La aplicación debe contar con las siguientes funcionalidades:
 1. Crear tareas.
@@ -19,6 +20,25 @@ personas de la misma tarea).
 * Habilidades (lista de habilidades asociadas a la persona, debe tener al menos una 
 habilidad)
 
-#Detalles
-* Compilar y ejecutar: ng server -0
-* Sustentación: https://youtu.be/JcOl2KZBUXU
+## Instalación
+### Requisitos Previos
+- Node.js (versión 14 o superior)
+- Angular CLI (versión 16 o superior)
+
+### Pasos para instalar el proyecto
+1. Clonar el repositorio:
+   ```bash
+   https://github.com/AndreaSoCa/ExamenTecnicoAngularV1.git
+2. Instalar las dependencias del proyecto
+   ```bash
+   npm install
+4. Iniciar la aplicación
+   ```bash
+   ng serve -o
+6. Abrir la aplicación en el navegador
+   ```bash
+   http://localhost:4200
+   
+## Sustentación
+  ```bash
+  https://youtu.be/gNZYPyUw6C8
