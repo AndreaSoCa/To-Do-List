@@ -12,6 +12,16 @@ function validarNombresUnicos(): ValidatorFn {
   };
 }
 
+function validarFechaLimite(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const fechaLimite = control.value;
+    const fechaActual = new Date();
+    const fechaLimiteDate = new Date(fechaLimite);
+
+    return fechaLimiteDate < fechaActual ? { fechaLimiteInvalida: true } : null;
+  };
+}
+
 @Component({
   selector: 'app-tarea-form',
   templateUrl: './tarea-form.component.html',
@@ -25,7 +35,8 @@ export class TareaFormComponent implements OnInit {
   ngOnInit(): void {
     this.tareaForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(5)]],
-      fechaLimite: ['', Validators.required],
+      fechaLimite: ['', [Validators.required, validarFechaLimite()]],
+      prioridad: ['Media', Validators.required],
       personas: this.fb.array([], validarNombresUnicos()),
     });
   }
@@ -72,6 +83,7 @@ export class TareaFormComponent implements OnInit {
   onSubmit() {
     if (this.tareaForm.valid) {
       // console.log(this.tareaForm.value);
+      const nuevaTarea = this.tareaForm.value;
       this.tareaService.agregarTarea(this.tareaForm.value);
       this.tareaForm.reset();
     }

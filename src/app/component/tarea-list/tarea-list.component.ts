@@ -8,26 +8,8 @@ import { Tarea, Persona } from 'src/app/interfaces/tarea.interface';
   styleUrls: ['./tarea-list.component.css']
 })
 export class TareaListComponent implements OnInit {
-  tareas: Tarea[] = [
-    // {
-    //   nombre: 'Tarea 1',
-    //   fechaLimite: '2024-03-20',
-    //   completada: false,
-    //   personas: [
-    //     { nombre: 'Prueba1', edad: 18, habilidades: ['Angular'] },
-    //     { nombre: 'Prueba2', edad: 18, habilidades: ['Angular'] }
-    //   ]
-    // },
-    // {
-    //   nombre: 'Tarea 2',
-    //   fechaLimite: '2024-10-20',
-    //   completada: true,
-    //   personas: [
-    //     { nombre: 'Prueba1', edad: 18, habilidades: ['Angular'] },
-    //     { nombre: 'Prueba2', edad: 18, habilidades: ['Angular'] }
-    //   ]
-    // }
-  ];
+  tareas: Tarea[] = [];
+  criterioOrden: string = 'prioridad';
 
   //Estado del filtro
   filtro : string = 'todas'; 
@@ -36,7 +18,9 @@ export class TareaListComponent implements OnInit {
 
   ngOnInit(): void {
     this.tareaService.obtenerTareas().subscribe(tareas => {
+      // console.log(tareas);
       this.tareas = tareas; 
+      this.ordenarTareas();
     })
   }
 
@@ -52,6 +36,25 @@ export class TareaListComponent implements OnInit {
   marcarTareaComoCompletada(tarea: Tarea) {
     tarea.completada = !tarea.completada;
     // this.tareasSubject.next(this.tareas);
+  }
+
+  ordenarTareas() {
+    // console.log('Tareas antes de ordenar:', this.tareas);
+    switch (this.criterioOrden) {
+      case 'prioridad':
+        this.tareas.sort((a, b) => {
+          const prioridades = { 'Alta': 3, 'Media': 2, 'Baja': 1 };
+          return prioridades[b.prioridad] - prioridades[a.prioridad];
+        });
+        break;
+      case 'fechaCreacion':
+        this.tareas.sort((a, b) => new Date(b.fechaCreacion).getTime() - new Date(a.fechaCreacion).getTime());
+        break;
+      case 'fechaVencimiento':
+        this.tareas.sort((a, b) => new Date(b.fechaLimite).getTime() - new Date(a.fechaLimite).getTime());
+        break;
+    }
+    // console.log('Tareas después de ordenar:', this.tareas);
   }
 
 }

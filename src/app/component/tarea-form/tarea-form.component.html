@@ -17,9 +17,22 @@
             <label for="fechaLimite">Fecha Límite</label>
             <input id="fechaLimite" formControlName="fechaLimite" type="date">
             <div class="error" *ngIf="tareaForm.get('fechaLimite')?.invalid && tareaForm.get('fechaLimite')?.touched">
-                La fecha límite es obligatoria.
-            </div>
+                <span *ngIf="tareaForm.get('fechaLimite')?.errors?.['required']">La fecha límite es obligatoria.</span>
+                <span *ngIf="tareaForm.get('fechaLimite')?.errors?.['fechaLimiteInvalida']">La fecha límite no puede ser menor a la fecha actual.</span>
+            </div>  
 
+        </div>
+
+        <div class="prioridad-tarea">
+            <label for="prioridad">Prioridad</label>
+            <select id="prioridad" formControlName="prioridad" class="select-prioridad">
+              <option value="Alta">Alta</option>
+              <option value="Media">Media</option>
+              <option value="Baja">Baja</option>
+            </select>
+            <div class="error" *ngIf="tareaForm.get('prioridad')?.invalid && tareaForm.get('prioridad')?.touched">
+              La prioridad es obligatoria.
+            </div>
         </div>
 
     </div>

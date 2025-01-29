@@ -1,30 +1,50 @@
 <div class="list">
-    <h2>Listado de Tareas</h2>
+  <h2>Listado de Tareas</h2>
 
-    <!-- Filtros -->
-    <div class="btn-filtro">
-        <button (click)="filtro = 'todas'">Todas</button>
-        <button (click)="filtro = 'completadas'">Completadas</button>
-        <button (click)="filtro = 'pendientes'">Pendientes</button>
-    </div>
+  <!-- Filtros -->
+  <div class="btn-filtro">
+    <button (click)="filtro = 'todas'">Todas</button>
+    <button (click)="filtro = 'completadas'">Completadas</button>
+    <button (click)="filtro = 'pendientes'">Pendientes</button>
+  </div>
 
-    <!-- Listado de tareas -->
-    <div class="listado-tareas">
+  <div class="ordenar-tareas">
+    <label for="ordenar">Ordenar por</label>
+    <select id="ordenar" formControlName="criterioOrden" (change)="ordenarTareas()" class="select-ordenar-tareas">
+      <option value="prioridad">Prioridad</option>
+      <option value="fechaCreacion">Fecha de Creación</option>
+      <option value="fechaVencimiento">Fecha de Vencimiento</option>
+    </select>
+  </div>
+
+  <!-- Listado de tareas -->
+  <div class="listado-tareas">
+    <ul>
+      <li *ngFor="let tarea of obtenerTareasFiltradas()">
+        <h3>
+          <input
+            type="checkbox"
+            [checked]="tarea.completada"
+            (change)="marcarTareaComoCompletada(tarea)"
+          />
+          {{ tarea.nombre }} ({{
+            tarea.completada ? "Completada" : "Pendiente"
+          }})
+        </h3>
+        <p>
+          Prioridad:
+          <span [ngClass]="tarea.prioridad">{{ tarea.prioridad }}</span>
+        </p>
+        <p>Fecha Límite: {{ tarea.fechaLimite }}</p>
+        <h4>Personas Asociadas:</h4>
         <ul>
-            <li *ngFor="let tarea of obtenerTareasFiltradas()">
-                <h3>
-                    <input type="checkbox" [checked]="tarea.completada" (change)="marcarTareaComoCompletada(tarea)">
-                    {{ tarea.nombre}} ({{ tarea.completada ? 'Completada' : 'Pendiente' }})</h3>
-                <p>Fecha Límite: {{ tarea.fechaLimite }}</p>
-                <h4>Personas Asociadas:</h4>
-                <ul>
-                    <li *ngFor="let persona of tarea.personas">
-                        {{ persona.nombre }} - {{ persona.edad }} años
-                        <br> Habilidades: {{ persona.habilidades.join(',') }}
-                    </li>
-                </ul>
-            </li>
+          <li *ngFor="let persona of tarea.personas">
+            {{ persona.nombre }} - {{ persona.edad }} años <br />
+            Habilidades: {{ persona.habilidades.join(",") }}
+          </li>
         </ul>
-    </div>
+      </li>
+    </ul>
+  </div>
 
 </div>
