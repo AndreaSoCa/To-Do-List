@@ -10,8 +10,6 @@ import { Tarea, Persona } from 'src/app/interfaces/tarea.interface';
 export class TareaListComponent implements OnInit {
   tareas: Tarea[] = [];
   criterioOrden: string = 'prioridad';
-
-  //Estado del filtro
   filtro : string = 'todas'; 
 
   constructor(private tareaService: TareaService) { }
@@ -40,18 +38,19 @@ export class TareaListComponent implements OnInit {
 
   ordenarTareas() {
     // console.log('Tareas antes de ordenar:', this.tareas);
+    const selectElement = document.getElementById('ordenar') as HTMLSelectElement;
+    this.criterioOrden = selectElement.value;
+
     switch (this.criterioOrden) {
       case 'prioridad':
-        this.tareas.sort((a, b) => {
-          const prioridades = { 'Alta': 3, 'Media': 2, 'Baja': 1 };
-          return prioridades[b.prioridad] - prioridades[a.prioridad];
-        });
+        const prioridades = { 'Alta': 3, 'Media': 2, 'Baja': 1 };
+        this.tareas.sort((a, b) => prioridades[b.prioridad] - prioridades[a.prioridad]);
         break;
       case 'fechaCreacion':
         this.tareas.sort((a, b) => new Date(b.fechaCreacion).getTime() - new Date(a.fechaCreacion).getTime());
         break;
       case 'fechaVencimiento':
-        this.tareas.sort((a, b) => new Date(b.fechaLimite).getTime() - new Date(a.fechaLimite).getTime());
+        this.tareas.sort((a, b) => new Date(a.fechaLimite).getTime() - new Date(b.fechaLimite).getTime());
         break;
     }
     // console.log('Tareas después de ordenar:', this.tareas);

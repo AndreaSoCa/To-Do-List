@@ -10,7 +10,7 @@
 
   <div class="ordenar-tareas">
     <label for="ordenar">Ordenar por</label>
-    <select id="ordenar" formControlName="criterioOrden" (change)="ordenarTareas()" class="select-ordenar-tareas">
+    <select id="ordenar" (change)="ordenarTareas()" class="select-ordenar-tareas">
       <option value="prioridad">Prioridad</option>
       <option value="fechaCreacion">Fecha de Creación</option>
       <option value="fechaVencimiento">Fecha de Vencimiento</option>
