@@ -5,6 +5,7 @@ export interface Persona {
 }
 
 export interface Tarea {
+  _id: string;
   nombre: string;
   fechaLimite: string;
   fechaCreacion: string;

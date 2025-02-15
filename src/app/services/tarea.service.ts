@@ -1,24 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Tarea, Persona }  from '../interfaces/tarea.interface';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
+import { Tarea }  from '../interfaces/tarea.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TareaService {
   private tareas: Tarea[] = [];
-  private tareasSubject = new BehaviorSubject<Tarea[]>(this.tareas)
+  private tareasSubject = new BehaviorSubject<Tarea[]>([])
+  tareas$ = this.tareasSubject.asObservable();
 
-  constructor() { }
-
-  obtenerTareas() {
-    return this.tareasSubject.asObservable();
-  }
-
-  agregarTarea(tarea: Tarea) {
-    this.tareas.push(tarea);
-    this.tareasSubject.next(this.tareas);
-  }
+  constructor(private apiService: ApiService) { }
 
   marcarComoCompletada(tarea: Tarea) {
     const tareaEncontrada = this.tareas.find(t => t.nombre === tarea.nombre);
@@ -27,5 +22,5 @@ export class TareaService {
       this.tareasSubject.next(this.tareas);
     }
   }
-    
+  
 }

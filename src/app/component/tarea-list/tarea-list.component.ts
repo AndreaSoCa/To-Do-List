@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TareaService } from 'src/app/services/tarea.service';
+import { ApiService } from 'src/app/services/api.service';
 import { Tarea, Persona } from 'src/app/interfaces/tarea.interface';
 
 @Component({
@@ -12,12 +13,12 @@ export class TareaListComponent implements OnInit {
   criterioOrden: string = 'prioridad';
   filtro : string = 'todas'; 
 
-  constructor(private tareaService: TareaService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.tareaService.obtenerTareas().subscribe(tareas => {
-      // console.log(tareas);
-      this.tareas = tareas; 
+    this.apiService.getTareas().subscribe(tareas => {
+      console.log("Tareas cargadas:", tareas);
+      this.tareas = tareas;
       this.ordenarTareas();
     })
   }
@@ -55,5 +56,19 @@ export class TareaListComponent implements OnInit {
     }
     // console.log('Tareas después de ordenar:', this.tareas);
   }
+
+  eliminarTarea(_id: string): void {
+    console.log('ID recibido para eliminar:', _id);
+  
+    if (_id) {
+      this.apiService.deleteTarea(_id).subscribe(() => {
+        console.log('Tarea eliminada correctamente');
+        this.apiService.getTareas();
+      });
+    } else {
+      console.log('No se recibió un ID válido');
+    }
+  }
+  
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TareaService } from 'src/app/services/tarea.service';
+import { ApiService } from 'src/app/services/api.service';
 
 function validarNombresUnicos(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -30,7 +31,7 @@ function validarFechaLimite(): ValidatorFn {
 export class TareaFormComponent implements OnInit {
   tareaForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private tareaService: TareaService) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.tareaForm = this.fb.group({
@@ -82,11 +83,17 @@ export class TareaFormComponent implements OnInit {
 
   onSubmit() {
     if (this.tareaForm.valid) {
-      // console.log(this.tareaForm.value);
       const nuevaTarea = this.tareaForm.value;
-      this.tareaService.agregarTarea(this.tareaForm.value);
-      this.tareaForm.reset();
+      this.apiService.addTarea(nuevaTarea).subscribe(
+        response => {
+          console.log('Tarea agregada:', response);
+          this.tareaForm.reset();
+        },
+        error => {
+          console.error('Error al agregar tarea:', error);
+        }
+      );
     }
   }
-
+  
 }

@@ -35,7 +35,7 @@
           Prioridad:
           <span [ngClass]="tarea.prioridad">{{ tarea.prioridad }}</span>
         </p>
-        <p>Fecha Límite: {{ tarea.fechaLimite }}</p>
+        <p>Fecha Límite: {{ tarea.fechaLimite | date: 'yyyy-MM-dd'}}</p>
         <h4>Personas Asociadas:</h4>
         <ul>
           <li *ngFor="let persona of tarea.personas">
@@ -43,6 +43,7 @@
             Habilidades: {{ persona.habilidades.join(",") }}
           </li>
         </ul>
+        <button type="button" class="btn-eliminar-tarea" (click)="eliminarTarea(tarea._id)">Eliminar</button>
       </li>
     </ul>
   </div>
